@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sequelize = require('./config/database');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -30,5 +31,9 @@ sequelize.sync()
     .catch(error => {
         console.error('Unabled to sync the database:', error);
     });
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
+});
 
 module.exports = app;
